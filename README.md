@@ -1,16 +1,3 @@
-# journal
+# journal_app description
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app is created for individuals to document their journey through life with ease and privacy. It's designed in such a way where users can freely express their thoughts, feelings, and daily experiences. With customizable features. This journal app is more than just a tool for recording events; it's a companion in the pursuit of personal development and mental wellness.
