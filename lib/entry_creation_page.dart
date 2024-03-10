@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EntryCreationPage extends StatefulWidget {
   final Function(String) onEntryCreation;
 
-  EntryCreationPage({required this.onEntryCreation});
+  const EntryCreationPage({super.key, required this.onEntryCreation});
 
   @override
   _EntryCreationPageState createState() => _EntryCreationPageState();
@@ -23,13 +23,13 @@ class _EntryCreationPageState extends State<EntryCreationPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.white), // Ensure icon is visible against AppBar
+          icon: const Icon(Icons.close, color: Colors.white), // Ensure icon is visible against AppBar
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Create Entry', style: TextStyle(color: Colors.white)), // Ensure title is visible
+        title: const Text('Create Entry', style: TextStyle(color: Colors.white)), // Ensure title is visible
         actions: [
           IconButton(
-            icon: Icon(Icons.done, color: Colors.white), // Ensure icon is visible against AppBar
+            icon: const Icon(Icons.done, color: Colors.white), // Ensure icon is visible against AppBar
             onPressed: () {
               if (_textEditingController.text.isNotEmpty) {
                 widget.onEntryCreation(_textEditingController.text);
@@ -51,10 +51,10 @@ class _EntryCreationPageState extends State<EntryCreationPage> {
         ),
         child: TextField(
           controller: _textEditingController,
-          style: TextStyle(color: Colors.white), // Ensure text is visible
+          style: const TextStyle(color: Colors.white), // Ensure text is visible
           decoration: InputDecoration(
             hintText: 'Start writing your entry...',
-            hintStyle: TextStyle(color: Colors.white70), // Ensure hint text is visible
+            hintStyle: const TextStyle(color: Colors.white70), // Ensure hint text is visible
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.deepPurple.shade100), // Border color
             ),

@@ -1,25 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  LoginPage({super.key});
+
+  Future<void> _login(BuildContext context) async {
+    try {
+      // Attempt to sign in the user with Firebase Authentication
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      // If successful, navigate to the HomePage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = 'An error occurred';
+      if (e.code == 'user-not-found') {
+        message = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        message = 'Wrong password provided.';
+      }
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
-      body: SingleChildScrollView( // Enables scrolling when keyboard is visible
+      body: SingleChildScrollView(
         child: Container(
-          width: double.infinity, // Ensures the container fills the screen width
-          padding: EdgeInsets.symmetric(horizontal: 20.0), // Applies padding to the sides
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1), // Provides top spacing
-              Image.asset('assets/images/logo.png', width: 100), // Logo at the top of the login form
-              SizedBox(height: 50), // Space after the logo before the login form
-              Text(
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+              Image.asset('assets/images/logo.png', width: 100),
+              const SizedBox(height: 50),
+              const Text(
                 'Login',
                 style: TextStyle(
                   fontSize: 36,
@@ -27,14 +59,14 @@ class LoginPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               TextField(
-                controller: _usernameController,
-                style: TextStyle(color: Colors.white70),
+                controller: _emailController,
+                style: const TextStyle(color: Colors.white70),
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person, color: Colors.white70),
-                  labelText: 'Username',
-                  labelStyle: TextStyle(color: Colors.white70),
+                  prefixIcon: const Icon(Icons.email, color: Colors.white70),
+                  labelText: 'Email',
+                  labelStyle: const TextStyle(color: Colors.white70),
                   filled: true,
                   fillColor: Colors.deepPurple[600],
                   border: OutlineInputBorder(
@@ -43,15 +75,15 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                style: TextStyle(color: Colors.white70),
+                style: const TextStyle(color: Colors.white70),
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock, color: Colors.white70),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.white70),
                   labelText: 'Password',
-                  labelStyle: TextStyle(color: Colors.white70),
+                  labelStyle: const TextStyle(color: Colors.white70),
                   filled: true,
                   fillColor: Colors.deepPurple[600],
                   border: OutlineInputBorder(
@@ -60,33 +92,19 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               ElevatedButton(
-                onPressed: () {
-                  if (_usernameController.text == 'admin' && _passwordController.text == 'admin') {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Incorrect username or password'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                child: Text(
+                onPressed: () => _login(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                ),
+                child: const Text(
                   'Log In',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1), // Provides bottom spacing
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
             ],
           ),
         ),

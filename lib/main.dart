@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyJournalApp extends StatelessWidget {
+  const MyJournalApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
