@@ -43,8 +43,7 @@ class NewEntryPage extends StatelessWidget {
                 icon: Icon(Icons.add, color: Colors.white),
                 label: Text('Create New Entry', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple.shade700, // Deep purple button
-                  onPrimary: Colors.white, // Text color
+                  foregroundColor: Colors.white, backgroundColor: Colors.deepPurple.shade700, // Text color
                 ),
               ),
             ),
